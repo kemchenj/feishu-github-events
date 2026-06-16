@@ -1,0 +1,14 @@
+{
+  "name": "feishu-github-events",
+  "version": "0.1.0",
+  "description": "Send GitHub event notifications from GitHub Actions to a Feishu bot.",
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/mock.js",
+    "test:unit": "node --test",
+    "fixtures:import": "node scripts/import-fixtures.js"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

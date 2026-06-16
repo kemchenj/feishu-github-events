@@ -1,0 +1,26 @@
+name: Feishu GitHub Events
+description: Send GitHub event notifications from GitHub Actions to a Feishu bot.
+branding:
+  icon: bell
+  color: blue
+inputs:
+  webhook:
+    description: Feishu group bot webhook URL.
+    required: true
+  secret:
+    description: Optional Feishu group bot signature secret.
+    required: false
+  template:
+    description: Message template name.
+    required: false
+    default: default
+  template-options:
+    description: JSON options merged into the selected template defaults.
+    required: false
+    default: "{}"
+  show-repository:
+    description: Whether to show owner/repo in the card body.
+    required: false
+runs:
+  using: node24
+  main: src/index.js

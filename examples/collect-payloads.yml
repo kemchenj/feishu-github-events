@@ -1,0 +1,85 @@
+name: Collect GitHub Event Payloads
+
+on:
+  branch_protection_rule:
+  check_run:
+  check_suite:
+  create:
+  delete:
+  deployment:
+  deployment_status:
+  discussion:
+  discussion_comment:
+  fork:
+  gollum:
+  image_version:
+  issue_comment:
+  issues:
+  label:
+  merge_group:
+  milestone:
+  page_build:
+  public:
+  pull_request:
+  pull_request_review:
+  pull_request_review_comment:
+  pull_request_target:
+  push:
+  registry_package:
+  release:
+  repository_dispatch:
+  schedule:
+    - cron: "0 9 * * 1"
+  status:
+  watch:
+  workflow_call:
+  workflow_dispatch:
+  workflow_run:
+
+permissions:
+  contents: read
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Copy event payload
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+
+          const payload = JSON.parse(readFileSync(process.env.GITHUB_EVENT_PATH, "utf8"));
+          const eventName = process.env.GITHUB_EVENT_NAME;
+          const action = payload.action || payload.event_type || payload.schedule || "none";
+          const safeAction = String(action).replace(/[^a-zA-Z0-9_.-]+/g, "_");
+          const timestamp = new Date()
+            .toISOString()
+            .replace(/[-:]/g, "")
+            .replace(/\.\d{3}Z$/, "Z");
+          const file = `payloads/${eventName}_${safeAction}_${timestamp}.json`;
+
+          mkdirSync("payloads", { recursive: true });
+          writeFileSync(file, `${JSON.stringify(payload, null, 2)}\n`);
+          writeFileSync(
+            "payloads/_summary.json",
+            `${JSON.stringify(
+              {
+                event: eventName,
+                action,
+                repository: payload.repository?.full_name || "",
+                sender: payload.sender?.login || "",
+                file
+              },
+              null,
+              2
+            )}\n`
+          );
+          NODE
+
+      - name: Upload payload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-event-payload-${{ github.event_name }}-${{ github.run_id }}
+          path: payloads/*.json
+          retention-days: 30
