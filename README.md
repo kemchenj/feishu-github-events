@@ -29,7 +29,7 @@ jobs:
           secret: ${{ secrets.FEISHU_SECRET }}
 ```
 
-See [examples/notify-all-events.yml](examples/notify-all-events.yml) for a workflow that listens to every supported event.
+For a full workflow that listens to every supported event, see this repository's dogfood workflow: [.github/workflows/notify-feishu.yml](.github/workflows/notify-feishu.yml).
 
 ## Inputs
 
@@ -115,7 +115,7 @@ npm run fixtures:sync -- --dry-run
 npm run fixtures:sync -- push
 ```
 
-To collect real payloads yourself, copy [examples/collect-payloads.yml](examples/collect-payloads.yml) to a temporary repository and download the uploaded artifacts after triggering events.
+To collect real payloads yourself, create a temporary workflow that uploads the raw `GITHUB_EVENT_PATH` JSON as an artifact after the events you want to inspect are triggered.
 
 ## Development
 
