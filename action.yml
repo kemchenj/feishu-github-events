@@ -21,6 +21,7 @@ inputs:
   show-repository:
     description: Whether to show owner/repo in the card body.
     required: false
+    default: "false"
 runs:
   using: node24
-  main: src/index.js
+  main: dist/index.js

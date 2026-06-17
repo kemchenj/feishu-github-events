@@ -4,11 +4,26 @@
   "description": "Send GitHub event notifications from GitHub Actions to a Feishu bot.",
   "type": "module",
   "scripts": {
-    "test": "node scripts/mock.js",
-    "test:unit": "node --test",
-    "fixtures:import": "node scripts/import-fixtures.js"
+    "build": "rollup -c",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx scripts/mock.ts",
+    "test:unit": "tsx --test test/*.test.ts",
+    "test:mock": "tsx scripts/mock.ts",
+    "test:mock:all": "tsx scripts/mock.ts --all-cases",
+    "fixtures:sync": "tsx scripts/sync-fixtures.ts",
+    "verify": "npm run typecheck && npm run test:unit && npm run build"
   },
   "engines": {
     "node": ">=24"
+  },
+  "devDependencies": {
+    "@octokit/openapi-webhooks-types": "^12.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-typescript": "^12.3.0",
+    "@types/node": "^25.9.3",
+    "rollup": "^4.62.0",
+    "tslib": "^2.8.1",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
   }
 }

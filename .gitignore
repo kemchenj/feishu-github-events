@@ -11,11 +11,11 @@ pnpm-debug.log*
 !.env.example
 
 coverage/
-dist/
+dist/*
+!dist/index.js
 build/
 tmp/
 temp/
 
 *.log
 *.tgz
-
