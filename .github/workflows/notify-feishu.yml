@@ -1,4 +1,4 @@
-name: Notify Feishu for All Events
+name: Notify Feishu
 
 on:
   branch_protection_rule:
@@ -29,7 +29,7 @@ on:
   release:
   repository_dispatch:
   schedule:
-    - cron: "0 9 * * 1"
+    - cron: "17 3 * * *"
   status:
   watch:
   workflow_call:
@@ -38,19 +38,22 @@ on:
     workflows: ["CI"]
     types: [completed]
 
+permissions:
+  contents: read
+
 jobs:
   notify:
     runs-on: ubuntu-latest
+    env:
+      FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
+      FEISHU_SECRET: ${{ secrets.FEISHU_SECRET }}
+
     steps:
-      - uses: owner/feishu-github-events@v1
+      - uses: actions/checkout@v4
+
+      - name: Send Feishu notification
+        if: ${{ env.FEISHU_WEBHOOK != '' }}
+        uses: ./
         with:
-          webhook: ${{ secrets.FEISHU_WEBHOOK }}
-          secret: ${{ secrets.FEISHU_SECRET }}
-          template: default
-          template-options: |
-            {
-              "titlePrefix": "GitHub",
-              "show": {
-                "sha": false
-              }
-            }
+          webhook: ${{ env.FEISHU_WEBHOOK }}
+          secret: ${{ env.FEISHU_SECRET }}

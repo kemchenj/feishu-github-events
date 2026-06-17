@@ -1,10 +1,12 @@
 # Feishu GitHub Events
 
-Send GitHub event notifications from GitHub Actions to a Feishu bot. This repository contains a single JavaScript Action that can be published from a public repository to GitHub Marketplace.
+Send GitHub event notifications from GitHub Actions to a Feishu group bot.
+
+This repository contains a single TypeScript JavaScript Action. The published Action entry is the Rollup bundle at `dist/index.js`, so consumers can use it directly from a tag such as `v1`.
 
 ## Usage
 
-Add a workflow to the target repository and store the Feishu bot webhook in GitHub Secrets.
+Store the Feishu bot webhook in GitHub Secrets, then call the Action from a workflow.
 
 ```yaml
 name: Notify Feishu
@@ -41,9 +43,9 @@ See [examples/notify-all-events.yml](examples/notify-all-events.yml) for a workf
 
 ## Template Options
 
-The first built-in template is `default`, rendered as a Feishu `interactive` card. It keeps the default body compact: event-specific refs are folded into titles when they matter, comment and review bodies keep Markdown formatting, GitHub usernames link to profiles, and the primary `View Detail` button is the single detail entry point.
+The built-in `default` template renders a compact Feishu `interactive` card. It keeps detail in the GitHub link instead of repeating context in the body: titles carry the key event signal, comment and review bodies keep Markdown formatting, GitHub usernames link to profiles, and every card uses a single `View Detail` button.
 
-Use `template-options` to tweak the title prefix, header colors, visible fields, and button text.
+Use `template-options` to tweak title prefix, header colors, visible fields, and button text.
 
 ```yaml
 - uses: owner/feishu-github-events@v1
@@ -52,14 +54,14 @@ Use `template-options` to tweak the title prefix, header colors, visible fields,
     secret: ${{ secrets.FEISHU_SECRET }}
     template-options: |
       {
-        "titlePrefix": "Repo Notify",
+        "titlePrefix": "GitHub",
         "eventHeaderTemplates": {
           "pull_request": "purple",
           "issues": "orange"
         },
         "show": {
-          "sha": false,
-          "workflow": false
+          "repository": true,
+          "sha": false
         },
         "buttonText": "View Detail"
       }
@@ -69,20 +71,28 @@ Future templates can be added by registering another template implementation and
 
 ## Local Mock
 
-`npm test` sends one mock payload for every GitHub Actions event supported by this Action, in order, to the configured Feishu bot. Use it to inspect and tune card formatting.
-
-Mock payloads live in [fixtures/events](fixtures/events). Each event has one JSON file, so you can edit the sample payload directly.
+Set `FEISHU_WEBHOOK` and run the mock sender to inspect the real Feishu card output.
 
 ```bash
-FEISHU_WEBHOOK="https://open.feishu.cn/open-apis/bot/v2/hook/xxx" \
-FEISHU_SECRET="optional-secret" \
-npm test
+FEISHU_WEBHOOK="https://open.feishu.cn/open-apis/bot/v2/hook/xxx" npm test
 ```
+
+Useful mock commands:
+
+```bash
+npm test
+npm run test:mock -- push
+npm run test:mock -- deployment_status --case failure
+npm run test:mock:all
+```
+
+`npm test` sends the primary fixture for every supported event. `test:mock` narrows the run to one event or one case. `test:mock:all` sends every fixture variant and is better suited for staged review.
 
 Optional environment variables:
 
 | env | default | description |
 | --- | --- | --- |
+| `FEISHU_SECRET` | | Feishu bot signature secret |
 | `TEMPLATE` | `default` | Template used by local mock sends |
 | `TEMPLATE_OPTIONS` | `{}` | Template JSON options used by local mock sends |
 | `SHOW_REPOSITORY` | | Set to `true` to show `owner/repo` in local mock cards |
@@ -94,28 +104,38 @@ Pure logic tests do not access the network:
 npm run test:unit
 ```
 
-## Collect Real Payloads
+## Fixtures
 
-To replace handwritten mocks with real GitHub event payloads, create a temporary test repository and copy [examples/collect-payloads.yml](examples/collect-payloads.yml) to `.github/workflows/collect-payloads.yml` in that repository. The workflow uploads the raw `GITHUB_EVENT_PATH` JSON as an artifact. It does not send Feishu messages or commit anything.
+Fixtures live under `fixtures/events/<event>/<case>.json`. `fixtures/events.json` is the manifest used by the mock runner and tests. Each entry records the event, case, source, and whether it is the primary case.
 
-Collection flow:
-
-1. Enable `collect-payloads.yml` in the temporary repository.
-2. Trigger the events you want to collect, such as push, open a PR, open an issue, publish a release, or run workflow dispatch.
-3. Download the `github-event-payload-...` artifact from the matching workflow run.
-4. Unzip the artifact and import it into this repository:
+The first fixture set is local and intentionally complete enough for formatting work. The sync script can pull available examples from Octokit's public webhook payload examples, then local cases can fill gaps that are Actions-only, hard to trigger, or status-specific.
 
 ```bash
-npm run fixtures:import -- /path/to/downloaded-payloads
+npm run fixtures:sync -- --dry-run
+npm run fixtures:sync -- push
 ```
 
-Preview before importing:
+To collect real payloads yourself, copy [examples/collect-payloads.yml](examples/collect-payloads.yml) to a temporary repository and download the uploaded artifacts after triggering events.
+
+## Development
+
+The Action source is TypeScript, but Marketplace consumers run the bundled JavaScript file.
 
 ```bash
-npm run fixtures:import -- /path/to/downloaded-payloads --dry-run
+npm ci
+npm run verify
 ```
 
-The import script detects the event name from the file name prefix and overwrites the matching JSON file under [fixtures/events](fixtures/events). Some events are hard to trigger naturally in a plain temporary repository: `workflow_call` needs another workflow to call it, `repository_dispatch` needs an API request, and `schedule` needs either time or a temporary high-frequency cron.
+`npm run verify` runs typecheck, unit tests, and Rollup build. Commit `dist/index.js` whenever source changes; CI checks that the bundle is up to date.
+
+## Dogfood
+
+This repository includes two workflows:
+
+- `.github/workflows/ci.yml` runs `npm run verify` and checks the generated bundle.
+- `.github/workflows/notify-feishu.yml` calls this Action with `uses: ./` for supported events. It skips the notification step when `FEISHU_WEBHOOK` is not configured.
+
+`workflow_run` notifications are limited to the `CI` workflow completing, so notification runs do not recursively notify themselves.
 
 ## Supported Events
 
@@ -123,7 +143,7 @@ The supported event list tracks GitHub Actions events that can trigger workflows
 
 `branch_protection_rule`, `check_run`, `check_suite`, `create`, `delete`, `deployment`, `deployment_status`, `discussion`, `discussion_comment`, `fork`, `gollum`, `image_version`, `issue_comment`, `issues`, `label`, `merge_group`, `milestone`, `page_build`, `public`, `pull_request`, `pull_request_review`, `pull_request_review_comment`, `pull_request_target`, `push`, `registry_package`, `release`, `repository_dispatch`, `schedule`, `status`, `watch`, `workflow_call`, `workflow_dispatch`, `workflow_run`
 
-Note: GitHub Actions uses `issue_comment` for pull request comments.
+GitHub Actions uses `issue_comment` for pull request comments.
 
 ## Marketplace Publishing
 
@@ -131,14 +151,17 @@ Before publishing to GitHub Marketplace, confirm:
 
 - The repository is public.
 - The repository root contains the single Marketplace-discoverable `action.yml`.
+- `action.yml` points to the committed `dist/index.js` bundle.
 - The `name` in `action.yml` is unique in Marketplace.
 - The repository owner has accepted the GitHub Marketplace Developer Agreement.
 
 Publishing steps:
 
-1. Create and push a version tag, such as `v1.0.0`.
-2. Create a GitHub Release.
-3. Check `Publish this Action to the GitHub Marketplace`.
-4. Choose categories, fill in the release notes, and publish the release.
+1. Run `npm run verify`.
+2. Commit the source and `dist/index.js`.
+3. Create and push a version tag, such as `v1.0.0`.
+4. Create a GitHub Release.
+5. Check `Publish this Action to the GitHub Marketplace`.
+6. Choose categories, fill in the release notes, and publish the release.
 
-Marketplace makes the Action discoverable; the actual notification triggers still come from each consumer repository's workflow `on:` configuration.
+Marketplace makes the Action discoverable; notification triggers still come from each consumer repository's workflow `on:` configuration.
