@@ -121,7 +121,7 @@ test("renders summary without default context fields", () => {
 
   assert.equal(summary.tag, "div");
   assert.ok(summary.text.content.includes("feat: add Feishu notification action"));
-  assert.doesNotMatch(summary.text.content, /^- /);
+  assert.match(summary.text.content, /^- feat: add Feishu notification action/);
   assert.doesNotMatch(summary.text.content, /\]\(https?:\/\//);
   assert.doesNotMatch(body, /\*\*By\*\*/);
   assert.doesNotMatch(body, /\*\*Ref\*\*/);
@@ -133,7 +133,7 @@ test("renders single comment summaries without list markers", () => {
     createMockPayload("pull_request_review_comment")
   );
   const message = renderTemplate("default", event);
-  const summary = message.card.elements.find((element) => element.text?.content) as any;
+  const summary = message.card.elements.find((element) => element.tag === "div" && element.text?.content) as any;
 
   assert.ok(summary.text.content.includes("[@octocat-reviewer](https://github.com/octocat-reviewer): Can we include the workflow name"));
   assert.doesNotMatch(summary.text.content, /^- /);
@@ -145,7 +145,7 @@ test("preserves markdown in comment summaries without links", () => {
   payload.comment.body = "**Please check**\n- See [the docs](https://example.com/docs)";
   const event = buildGitHubEventMessage("pull_request_review_comment", payload);
   const message = renderTemplate("default", event);
-  const summary = message.card.elements.find((element) => element.text?.content) as any;
+  const summary = message.card.elements.find((element) => element.tag === "div" && element.text?.content) as any;
 
   assert.equal(summary.text.tag, "lark_md");
   assert.match(summary.text.content, /\[@octocat-reviewer\]\(https:\/\/github\.com\/octocat-reviewer\): \*\*Please check\*\*/);
@@ -157,7 +157,7 @@ test("preserves markdown in comment summaries without links", () => {
 test("renders single key-value summaries without list markers", () => {
   const event = buildGitHubEventMessage("issues", createMockPayload("issues"));
   const message = renderTemplate("default", event);
-  const summary = message.card.elements.find((element) => element.text?.content) as any;
+  const summary = message.card.elements.find((element) => element.tag === "div" && element.text?.content) as any;
 
   assert.match(summary.text.content, /^Labels: /);
   assert.doesNotMatch(summary.text.content, /^- /);
@@ -167,7 +167,7 @@ test("renders workflow call inputs as a yaml-like summary block", () => {
   const event = buildGitHubEventMessage("workflow_call", createMockPayload("workflow_call"));
   const message = renderTemplate("default", event);
   const summary = message.card.elements.find(
-    (element) => element.text?.content?.includes("**Inputs:**")
+    (element) => element.tag === "div" && element.text?.content?.includes("**Inputs:**")
   ) as any;
   const content = summary.text.content;
 

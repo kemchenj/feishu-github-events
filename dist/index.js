@@ -572,14 +572,18 @@ function pushSummary(payload) {
     if (commits.length === 0) {
         return null;
     }
-    const latestCommit = payload.head_commit || commits[commits.length - 1];
-    const latest = latestCommit?.message?.split("\n")[0] || "";
-    if (!latest) {
+    const messages = commits
+        .map((commit) => commit.message?.split("\n")[0]?.trim())
+        .filter(Boolean);
+    if (messages.length === 0) {
         return null;
     }
     return {
-        text: `Latest: ${latest}`,
-        url: payload.compare || latestCommit?.url || ""
+        text: [
+            ...messages.slice(0, 3).map((message) => `- ${message}`),
+            messages.length > 3 ? "- ..." : ""
+        ].filter(Boolean).join("\n"),
+        url: payload.compare || commits[commits.length - 1]?.url || ""
     };
 }
 function pushTitle(payload) {

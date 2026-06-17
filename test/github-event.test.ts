@@ -23,10 +23,33 @@ test("builds push payload message", () => {
   assert.equal(event.sha, "0123456789abcdef0123456789abcdef01234567");
   assert.match(event.title, /Push to main/);
   assert.ok(event.summary.length >= 1);
-  assert.match(event.summary[0].text, /Latest: feat: add Feishu notification action/);
+  assert.equal(
+    event.summary[0].text,
+    "- feat: add Feishu notification action\n- test: cover all event mocks"
+  );
   assert.equal(
     event.primaryUrl,
     "https://github.com/octocat/hello-world/compare/1111111111111111111111111111111111111111...0123456789abcdef0123456789abcdef01234567"
+  );
+});
+
+test("truncates push commit summaries after three commits", () => {
+  const payload = createMockPayload("push");
+  payload.commits = [
+    ...payload.commits,
+    { ...payload.commits[0], message: "refactor: switch to ts\n\nbody" },
+    { ...payload.commits[0], message: "docs: update marketplace guide" }
+  ];
+  const event = buildGitHubEventMessage("push", payload);
+
+  assert.equal(
+    event.summary[0].text,
+    [
+      "- feat: add Feishu notification action",
+      "- test: cover all event mocks",
+      "- refactor: switch to ts",
+      "- ..."
+    ].join("\n")
   );
 });
 

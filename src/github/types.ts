@@ -1,5 +1,5 @@
 import type { webhooks } from "@octokit/openapi-webhooks-types";
-import type { ActionEventName } from "./action-events.js";
+import type { ActionEventName } from "../action-events.js";
 
 type WebhookPayload<Key extends keyof webhooks> =
   webhooks[Key]["post"] extends {
@@ -32,7 +32,7 @@ export interface SummaryItem {
   authorUrl?: string;
 }
 
-export interface LarkMessage {
+export interface GitHubEventMessage {
   name: ActionEventName;
   action: string;
   repository: string;
@@ -51,44 +51,10 @@ export interface LarkMessage {
 
 export interface HandlerContext {
   env: NodeJS.ProcessEnv;
-  base: LarkMessage;
+  base: GitHubEventMessage;
 }
 
 export type GitHubEventHandler<Name extends ActionEventName = ActionEventName> = (
   payload: PayloadOf<Name>,
   context: HandlerContext
-) => Partial<LarkMessage>;
-
-export interface FeishuText {
-  tag: "plain_text" | "lark_md";
-  content: string;
-}
-
-export interface FeishuCardElement {
-  tag: string;
-  text?: FeishuText;
-  fields?: Array<{
-    is_short: boolean;
-    text: FeishuText;
-  }>;
-  actions?: Array<{
-    tag: "button";
-    text: FeishuText;
-    url: string;
-    type?: string;
-  }>;
-}
-
-export interface FeishuInteractiveMessage {
-  msg_type: "interactive";
-  card: {
-    config: {
-      wide_screen_mode: boolean;
-    };
-    header: {
-      template: string;
-      title: FeishuText;
-    };
-    elements: FeishuCardElement[];
-  };
-}
+) => Partial<GitHubEventMessage>;

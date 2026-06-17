@@ -1,6 +1,7 @@
 import { shortRef, shortSha } from "../github-event.js";
 import { deepMerge } from "../template-options.js";
-import type { FeishuCardElement, FeishuInteractiveMessage, LarkMessage, SummaryItem } from "../types.js";
+import type { GitHubEventMessage, SummaryItem } from "../github/types.js";
+import type { LarkCardElement, LarkMessage } from "../lark/types.js";
 
 const DEFAULT_OPTIONS = Object.freeze({
   titlePrefix: "GitHub",
@@ -73,12 +74,12 @@ type TemplateOptions = typeof DEFAULT_OPTIONS & {
 } & Record<string, any>;
 
 export function renderDefaultTemplate(
-  event: LarkMessage,
+  event: GitHubEventMessage,
   overrides: Record<string, unknown> = {}
-): FeishuInteractiveMessage {
+): LarkMessage {
   const options = deepMerge(DEFAULT_OPTIONS, overrides) as TemplateOptions;
   const fields = buildFields(event, options);
-  const elements: FeishuCardElement[] = [];
+  const elements: LarkCardElement[] = [];
 
   if (fields.length) {
     elements.push({
@@ -136,7 +137,7 @@ export function renderDefaultTemplate(
   };
 }
 
-function buildFields(event: LarkMessage, options: TemplateOptions): Array<{ label: string; value: string }> {
+function buildFields(event: GitHubEventMessage, options: TemplateOptions): Array<{ label: string; value: string }> {
   return compact([
     options.show.event && field(options.labels.event, event.name),
     options.show.action && field(options.labels.action, event.action),
@@ -154,11 +155,11 @@ function buildFields(event: LarkMessage, options: TemplateOptions): Array<{ labe
   ]);
 }
 
-function titleAlreadyShowsRef(event: LarkMessage): boolean {
+function titleAlreadyShowsRef(event: GitHubEventMessage): boolean {
   return ["push", "create", "delete", "merge_group"].includes(event.name);
 }
 
-function buildSummaryElements(summary: SummaryItem[], options: TemplateOptions): FeishuCardElement[] {
+function buildSummaryElements(summary: SummaryItem[], options: TemplateOptions): LarkCardElement[] {
   const items = summary.slice(0, options.maxSummaryItems);
   const hiddenCount = Math.max(0, summary.length - items.length);
   const fieldItems = items.filter((item) => item.label && item.value);

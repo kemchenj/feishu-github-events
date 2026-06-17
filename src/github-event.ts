@@ -3,9 +3,9 @@ import type {
   GitHubEventHandler,
   GitHubPayload,
   HandlerContext,
-  LarkMessage,
+  GitHubEventMessage,
   SummaryItem
-} from "./types.js";
+} from "./github/types.js";
 
 export const defaultHandlers = {
   branch_protection_rule: buildBranchProtectionRuleEvent,
@@ -47,7 +47,7 @@ export function buildGitHubEventMessage(
   eventName: string,
   payload: GitHubPayload = {},
   env: NodeJS.ProcessEnv = process.env
-): LarkMessage {
+): GitHubEventMessage {
   if (!isActionEventName(eventName)) {
     throw new Error(`Unsupported GitHub event: ${eventName}`);
   }
@@ -67,7 +67,7 @@ export function normalizeGitHubEvent(
   eventName: string,
   payload: GitHubPayload = {},
   env: NodeJS.ProcessEnv = process.env
-): LarkMessage {
+): GitHubEventMessage {
   return buildGitHubEventMessage(eventName, payload, env);
 }
 
@@ -75,7 +75,7 @@ function buildBaseMessage(
   eventName: ActionEventName,
   payload: GitHubPayload,
   env: NodeJS.ProcessEnv
-): LarkMessage {
+): GitHubEventMessage {
   const repository = payload.repository || {};
   const sender = payload.sender || {};
   const sha = pickSha(payload, env);
@@ -99,7 +99,7 @@ function buildBaseMessage(
   };
 }
 
-export function buildPushEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildPushEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: pushTitle(payload),
     summary: [pushSummary(payload)].filter(Boolean) as SummaryItem[],
@@ -107,43 +107,43 @@ export function buildPushEvent(payload: GitHubPayload): Partial<LarkMessage> {
   };
 }
 
-export function buildBranchProtectionRuleEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildBranchProtectionRuleEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: `Branch protection ${payload.action || ""}: ${payload.rule?.name || payload.rule?.pattern || ""}`.trim()
   };
 }
 
-export function buildPullRequestEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildPullRequestEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: pullRequestTitle(payload)
   };
 }
 
-export function buildPullRequestTargetEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildPullRequestTargetEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return buildPullRequestEvent(payload);
 }
 
-export function buildIssuesEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildIssuesEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: issueTitle(payload),
     summary: issuesSummary(payload)
   };
 }
 
-export function buildIssueCommentEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildIssueCommentEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: issueCommentTitle(payload),
     summary: [commentSummary(payload.comment)].filter(Boolean) as SummaryItem[]
   };
 }
 
-export function buildReleaseEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildReleaseEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: `Release ${payload.action || ""}: ${payload.release?.name || payload.release?.tag_name || ""}`.trim()
   };
 }
 
-export function buildWorkflowRunEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildWorkflowRunEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   const conclusion = payload.workflow_run?.conclusion;
   if (payload.action === "completed" && isFailure(conclusion)) {
     return buildWorkflowRunFailedEvent(payload);
@@ -161,7 +161,7 @@ export function buildWorkflowRunEvent(payload: GitHubPayload): Partial<LarkMessa
   };
 }
 
-export function buildWorkflowRunPassedEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildWorkflowRunPassedEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: titleWithDetails(
       titleWithRef("Workflow passed", payload.workflow_run?.head_branch),
@@ -171,7 +171,7 @@ export function buildWorkflowRunPassedEvent(payload: GitHubPayload): Partial<Lar
   };
 }
 
-export function buildWorkflowRunFailedEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildWorkflowRunFailedEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: titleWithDetails(
       titleWithRef(`Workflow ${resultState(payload.workflow_run?.conclusion)}`, payload.workflow_run?.head_branch),
@@ -181,7 +181,7 @@ export function buildWorkflowRunFailedEvent(payload: GitHubPayload): Partial<Lar
   };
 }
 
-export function buildWorkflowDispatchEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildWorkflowDispatchEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: titleWithDetails(
       titleWithRef("Workflow manually triggered", payload.ref),
@@ -191,7 +191,7 @@ export function buildWorkflowDispatchEvent(payload: GitHubPayload): Partial<Lark
   };
 }
 
-export function buildWorkflowCallEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildWorkflowCallEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: titleWithDetails(
       titleWithRef("Workflow called", payload.ref),
@@ -201,27 +201,27 @@ export function buildWorkflowCallEvent(payload: GitHubPayload): Partial<LarkMess
   };
 }
 
-export function buildScheduleEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildScheduleEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: `Schedule triggered: ${payload.schedule || ""}`.trim()
   };
 }
 
-export function buildCreateEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildCreateEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: refChangeTitle("created", payload),
     headerTemplate: payload.ref_type === "tag" ? "purple" : "green"
   };
 }
 
-export function buildDeleteEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildDeleteEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: refChangeTitle("deleted", payload),
     headerTemplate: "red"
   };
 }
 
-export function buildDeploymentEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildDeploymentEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: titleWithDetails(
       titleFromRef("Deployment requested", payload.deployment?.ref),
@@ -230,7 +230,7 @@ export function buildDeploymentEvent(payload: GitHubPayload): Partial<LarkMessag
   };
 }
 
-export function buildDeploymentStatusEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildDeploymentStatusEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   const state = payload.deployment_status?.state;
   if (state === "success") {
     return buildDeploymentSuccessEvent(payload);
@@ -248,7 +248,7 @@ export function buildDeploymentStatusEvent(payload: GitHubPayload): Partial<Lark
   };
 }
 
-export function buildDeploymentSuccessEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildDeploymentSuccessEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: titleWithDetails(
       titleFromRef("Deployment succeeded", payload.deployment?.ref),
@@ -258,7 +258,7 @@ export function buildDeploymentSuccessEvent(payload: GitHubPayload): Partial<Lar
   };
 }
 
-export function buildDeploymentFailureEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildDeploymentFailureEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: titleWithDetails(
       titleFromRef("Deployment failed", payload.deployment?.ref),
@@ -269,34 +269,34 @@ export function buildDeploymentFailureEvent(payload: GitHubPayload): Partial<Lar
   };
 }
 
-export function buildPullRequestReviewEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildPullRequestReviewEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: pullRequestReviewTitle(payload),
     summary: [commentSummary(payload.review)].filter(Boolean) as SummaryItem[]
   };
 }
 
-export function buildPullRequestReviewCommentEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildPullRequestReviewCommentEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: pullRequestReviewCommentTitle(payload),
     summary: [commentSummary(payload.comment)].filter(Boolean) as SummaryItem[]
   };
 }
 
-export function buildDiscussionEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildDiscussionEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: `Discussion ${payload.action || ""}: ${truncate(payload.discussion?.title || "")}`.trim()
   };
 }
 
-export function buildDiscussionCommentEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildDiscussionCommentEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: discussionCommentTitle(payload),
     summary: [commentSummary(payload.comment)].filter(Boolean) as SummaryItem[]
   };
 }
 
-export function buildCheckRunEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildCheckRunEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   const state = checkState(payload.check_run, payload.action);
   return {
     title: titleWithDetails(
@@ -307,32 +307,32 @@ export function buildCheckRunEvent(payload: GitHubPayload): Partial<LarkMessage>
   };
 }
 
-export function buildCheckSuiteEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildCheckSuiteEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: titleWithRef(`Check suite ${checkState(payload.check_suite, payload.action)}`, payload.check_suite?.head_branch),
     headerTemplate: isFailure(payload.check_suite?.conclusion) ? "red" : undefined
   };
 }
 
-export function buildGollumEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildGollumEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: `Wiki updated: ${(payload.pages || []).map((page: GitHubPayload) => page.page_name).filter(Boolean).join(", ")}`
   };
 }
 
-export function buildImageVersionEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildImageVersionEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: `Image version ${payload.action || ""}: ${compact([payload.image_version?.name, payload.image_version?.version]).join(" ")}`.trim()
   };
 }
 
-export function buildLabelEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildLabelEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: `Label ${payload.action || ""}: ${payload.label?.name || ""}`.trim()
   };
 }
 
-export function buildMergeGroupEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildMergeGroupEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: titleWithDetails(
       `Merge group ${actionLabel(payload.action, { checks_requested: "checks requested" })}`,
@@ -341,13 +341,13 @@ export function buildMergeGroupEvent(payload: GitHubPayload): Partial<LarkMessag
   };
 }
 
-export function buildMilestoneEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildMilestoneEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: `Milestone ${payload.action || ""}: ${payload.milestone?.title || ""}`.trim()
   };
 }
 
-export function buildPageBuildEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildPageBuildEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   const failed = payload.build?.status === "errored";
   return {
     title: titleWithDetails(`Pages build ${pageBuildState(payload.build?.status)}`, shortSha(payload.build?.commit || "")),
@@ -355,26 +355,26 @@ export function buildPageBuildEvent(payload: GitHubPayload): Partial<LarkMessage
   };
 }
 
-export function buildPublicEvent(): Partial<LarkMessage> {
+export function buildPublicEvent(): Partial<GitHubEventMessage> {
   return {
     title: "Repository made public"
   };
 }
 
-export function buildRegistryPackageEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildRegistryPackageEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: titleWithDetails(`Package ${payload.action || ""}`, registryPackageName(payload))
   };
 }
 
-export function buildRepositoryDispatchEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildRepositoryDispatchEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: `Repository dispatch: ${payload.event_type || ""}`.trim(),
     summary: []
   };
 }
 
-export function buildStatusEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildStatusEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   const failed = isFailure(payload.state);
   return {
     title: titleWithDetails(
@@ -386,13 +386,13 @@ export function buildStatusEvent(payload: GitHubPayload): Partial<LarkMessage> {
   };
 }
 
-export function buildWatchEvent(): Partial<LarkMessage> {
+export function buildWatchEvent(): Partial<GitHubEventMessage> {
   return {
     title: "Repository starred"
   };
 }
 
-export function buildForkEvent(payload: GitHubPayload): Partial<LarkMessage> {
+export function buildForkEvent(payload: GitHubPayload): Partial<GitHubEventMessage> {
   return {
     title: `Repository forked: ${payload.forkee?.full_name || ""}`.trim()
   };
@@ -498,15 +498,19 @@ function pushSummary(payload: GitHubPayload): SummaryItem | null {
     return null;
   }
 
-  const latestCommit = payload.head_commit || commits[commits.length - 1];
-  const latest = latestCommit?.message?.split("\n")[0] || "";
-  if (!latest) {
+  const messages = commits
+    .map((commit: GitHubPayload) => commit.message?.split("\n")[0]?.trim())
+    .filter(Boolean);
+  if (messages.length === 0) {
     return null;
   }
 
   return {
-    text: `Latest: ${latest}`,
-    url: payload.compare || latestCommit?.url || ""
+    text: [
+      ...messages.slice(0, 3).map((message: string) => `- ${message}`),
+      messages.length > 3 ? "- ..." : ""
+    ].filter(Boolean).join("\n"),
+    url: payload.compare || commits[commits.length - 1]?.url || ""
   };
 }
 
