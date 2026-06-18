@@ -1,46 +1,1682 @@
 [
-  { "event": "branch_protection_rule", "case": "primary", "path": "events/branch_protection_rule/primary.json", "primary": true, "source": "local", "notes": "Representative branch protection rule change." },
-  { "event": "check_run", "case": "primary", "path": "events/check_run/primary.json", "primary": true, "source": "local", "notes": "Successful completed check run." },
-  { "event": "check_run", "case": "failure", "path": "events/check_run/failure.json", "primary": false, "source": "local", "notes": "Failed completed check run." },
-  { "event": "check_suite", "case": "primary", "path": "events/check_suite/primary.json", "primary": true, "source": "local", "notes": "Successful completed check suite." },
-  { "event": "check_suite", "case": "failure", "path": "events/check_suite/failure.json", "primary": false, "source": "local", "notes": "Failed completed check suite." },
-  { "event": "create", "case": "primary", "path": "events/create/primary.json", "primary": true, "source": "local", "notes": "Branch creation event." },
-  { "event": "delete", "case": "primary", "path": "events/delete/primary.json", "primary": true, "source": "local", "notes": "Branch deletion event." },
-  { "event": "deployment", "case": "primary", "path": "events/deployment/primary.json", "primary": true, "source": "local", "notes": "Deployment request." },
-  { "event": "deployment", "case": "production", "path": "events/deployment/production.json", "primary": false, "source": "local", "notes": "Production deployment request." },
-  { "event": "deployment_status", "case": "primary", "path": "events/deployment_status/primary.json", "primary": true, "source": "local", "notes": "Successful deployment status." },
-  { "event": "deployment_status", "case": "failure", "path": "events/deployment_status/failure.json", "primary": false, "source": "local", "notes": "Failed deployment status." },
-  { "event": "discussion", "case": "primary", "path": "events/discussion/primary.json", "primary": true, "source": "local", "notes": "Discussion opened." },
-  { "event": "discussion_comment", "case": "primary", "path": "events/discussion_comment/primary.json", "primary": true, "source": "local", "notes": "Discussion comment created." },
-  { "event": "fork", "case": "primary", "path": "events/fork/primary.json", "primary": true, "source": "local", "notes": "Repository forked." },
-  { "event": "gollum", "case": "primary", "path": "events/gollum/primary.json", "primary": true, "source": "local", "notes": "Wiki pages updated." },
-  { "event": "image_version", "case": "primary", "path": "events/image_version/primary.json", "primary": true, "source": "local", "notes": "GitHub image version event." },
-  { "event": "issue_comment", "case": "primary", "path": "events/issue_comment/primary.json", "primary": true, "source": "local", "notes": "Issue comment created." },
-  { "event": "issues", "case": "primary", "path": "events/issues/primary.json", "primary": true, "source": "local", "notes": "Issue opened." },
-  { "event": "issues", "case": "closed", "path": "events/issues/closed.json", "primary": false, "source": "local", "notes": "Issue closed." },
-  { "event": "label", "case": "primary", "path": "events/label/primary.json", "primary": true, "source": "local", "notes": "Label created." },
-  { "event": "merge_group", "case": "primary", "path": "events/merge_group/primary.json", "primary": true, "source": "local", "notes": "Merge queue checks requested." },
-  { "event": "milestone", "case": "primary", "path": "events/milestone/primary.json", "primary": true, "source": "local", "notes": "Milestone opened." },
-  { "event": "page_build", "case": "primary", "path": "events/page_build/primary.json", "primary": true, "source": "local", "notes": "Successful Pages build." },
-  { "event": "page_build", "case": "failure", "path": "events/page_build/failure.json", "primary": false, "source": "local", "notes": "Failed Pages build." },
-  { "event": "public", "case": "primary", "path": "events/public/primary.json", "primary": true, "source": "local", "notes": "Repository made public." },
-  { "event": "pull_request", "case": "primary", "path": "events/pull_request/primary.json", "primary": true, "source": "local", "notes": "Pull request opened." },
-  { "event": "pull_request", "case": "merged", "path": "events/pull_request/merged.json", "primary": false, "source": "local", "notes": "Pull request closed and merged." },
-  { "event": "pull_request_review", "case": "primary", "path": "events/pull_request_review/primary.json", "primary": true, "source": "local", "notes": "Pull request review approved." },
-  { "event": "pull_request_review_comment", "case": "primary", "path": "events/pull_request_review_comment/primary.json", "primary": true, "source": "local", "notes": "Pull request review comment created." },
-  { "event": "pull_request_target", "case": "primary", "path": "events/pull_request_target/primary.json", "primary": true, "source": "local", "notes": "Pull request target opened." },
-  { "event": "push", "case": "primary", "path": "events/push/primary.json", "primary": true, "source": "local", "notes": "Push with commits." },
-  { "event": "registry_package", "case": "primary", "path": "events/registry_package/primary.json", "primary": true, "source": "local", "notes": "Package published." },
-  { "event": "release", "case": "primary", "path": "events/release/primary.json", "primary": true, "source": "local", "notes": "Release published." },
-  { "event": "repository_dispatch", "case": "primary", "path": "events/repository_dispatch/primary.json", "primary": true, "source": "local", "notes": "Repository dispatch event." },
-  { "event": "schedule", "case": "primary", "path": "events/schedule/primary.json", "primary": true, "source": "local", "notes": "Scheduled workflow event." },
-  { "event": "status", "case": "primary", "path": "events/status/primary.json", "primary": true, "source": "local", "notes": "Successful commit status." },
-  { "event": "status", "case": "failure", "path": "events/status/failure.json", "primary": false, "source": "local", "notes": "Failed commit status." },
-  { "event": "status", "case": "pending", "path": "events/status/pending.json", "primary": false, "source": "local", "notes": "Pending commit status." },
-  { "event": "watch", "case": "primary", "path": "events/watch/primary.json", "primary": true, "source": "local", "notes": "Repository starred." },
-  { "event": "workflow_call", "case": "primary", "path": "events/workflow_call/primary.json", "primary": true, "source": "local", "notes": "Reusable workflow called." },
-  { "event": "workflow_dispatch", "case": "primary", "path": "events/workflow_dispatch/primary.json", "primary": true, "source": "local", "notes": "Manual workflow dispatch." },
-  { "event": "workflow_run", "case": "primary", "path": "events/workflow_run/primary.json", "primary": true, "source": "local", "notes": "Successful workflow run." },
-  { "event": "workflow_run", "case": "failure", "path": "events/workflow_run/failure.json", "primary": false, "source": "local", "notes": "Failed workflow run." },
-  { "event": "workflow_run", "case": "cancelled", "path": "events/workflow_run/cancelled.json", "primary": false, "source": "local", "notes": "Cancelled workflow run." }
+  {
+    "event": "branch_protection_rule",
+    "case": "created",
+    "path": "events/branch_protection_rule/created.json",
+    "source": "local",
+    "notes": "Representative branch protection rule change."
+  },
+  {
+    "event": "branch_protection_rule",
+    "case": "created-1",
+    "path": "events/branch_protection_rule/created-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (created)."
+  },
+  {
+    "event": "branch_protection_rule",
+    "case": "created-2",
+    "path": "events/branch_protection_rule/created-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3 (created)."
+  },
+  {
+    "event": "branch_protection_rule",
+    "case": "deleted",
+    "path": "events/branch_protection_rule/deleted.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #4 (deleted)."
+  },
+  {
+    "event": "branch_protection_rule",
+    "case": "edited-1",
+    "path": "events/branch_protection_rule/edited-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (edited)."
+  },
+  {
+    "event": "branch_protection_rule",
+    "case": "edited-2",
+    "path": "events/branch_protection_rule/edited-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #5 (edited)."
+  },
+  {
+    "event": "check_run",
+    "case": "completed",
+    "path": "events/check_run/completed.json",
+    "source": "local",
+    "notes": "Successful completed check run."
+  },
+  {
+    "event": "check_run",
+    "case": "failure",
+    "path": "events/check_run/failure.json",
+    "source": "local",
+    "notes": "Failed completed check run."
+  },
+  {
+    "event": "check_run",
+    "case": "completed-1",
+    "path": "events/check_run/completed-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (completed)."
+  },
+  {
+    "event": "check_run",
+    "case": "completed-2",
+    "path": "events/check_run/completed-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3 (completed)."
+  },
+  {
+    "event": "check_run",
+    "case": "completed-3",
+    "path": "events/check_run/completed-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #4 (completed)."
+  },
+  {
+    "event": "check_run",
+    "case": "created-1",
+    "path": "events/check_run/created-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (created)."
+  },
+  {
+    "event": "check_run",
+    "case": "created-2",
+    "path": "events/check_run/created-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #5 (created)."
+  },
+  {
+    "event": "check_run",
+    "case": "created-3",
+    "path": "events/check_run/created-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #6 (created)."
+  },
+  {
+    "event": "check_run",
+    "case": "requested-action",
+    "path": "events/check_run/requested-action.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #7 (requested_action)."
+  },
+  {
+    "event": "check_run",
+    "case": "rerequested-1",
+    "path": "events/check_run/rerequested-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #8 (rerequested)."
+  },
+  {
+    "event": "check_run",
+    "case": "rerequested-2",
+    "path": "events/check_run/rerequested-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #9 (rerequested)."
+  },
+  {
+    "event": "check_suite",
+    "case": "completed",
+    "path": "events/check_suite/completed.json",
+    "source": "local",
+    "notes": "Successful completed check suite."
+  },
+  {
+    "event": "check_suite",
+    "case": "failure",
+    "path": "events/check_suite/failure.json",
+    "source": "local",
+    "notes": "Failed completed check suite."
+  },
+  {
+    "event": "check_suite",
+    "case": "completed-1",
+    "path": "events/check_suite/completed-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (completed)."
+  },
+  {
+    "event": "check_suite",
+    "case": "completed-2",
+    "path": "events/check_suite/completed-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (completed)."
+  },
+  {
+    "event": "check_suite",
+    "case": "completed-3",
+    "path": "events/check_suite/completed-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3 (completed)."
+  },
+  {
+    "event": "check_suite",
+    "case": "completed-4",
+    "path": "events/check_suite/completed-4.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #4 (completed)."
+  },
+  {
+    "event": "check_suite",
+    "case": "requested-1",
+    "path": "events/check_suite/requested-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #5 (requested)."
+  },
+  {
+    "event": "check_suite",
+    "case": "requested-2",
+    "path": "events/check_suite/requested-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #6 (requested)."
+  },
+  {
+    "event": "check_suite",
+    "case": "requested-3",
+    "path": "events/check_suite/requested-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #7 (requested)."
+  },
+  {
+    "event": "check_suite",
+    "case": "rerequested-1",
+    "path": "events/check_suite/rerequested-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #8 (rerequested)."
+  },
+  {
+    "event": "check_suite",
+    "case": "rerequested-2",
+    "path": "events/check_suite/rerequested-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #9 (rerequested)."
+  },
+  {
+    "event": "create",
+    "case": "branch",
+    "path": "events/create/branch.json",
+    "source": "local",
+    "notes": "Branch creation event."
+  },
+  {
+    "event": "create",
+    "case": "tag-1",
+    "path": "events/create/tag-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (tag)."
+  },
+  {
+    "event": "create",
+    "case": "tag-2",
+    "path": "events/create/tag-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (tag)."
+  },
+  {
+    "event": "create",
+    "case": "tag-3",
+    "path": "events/create/tag-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3 (tag)."
+  },
+  {
+    "event": "create",
+    "case": "tag-4",
+    "path": "events/create/tag-4.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #4 (tag)."
+  },
+  {
+    "event": "create",
+    "case": "tag-5",
+    "path": "events/create/tag-5.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #5 (tag)."
+  },
+  {
+    "event": "delete",
+    "case": "branch",
+    "path": "events/delete/branch.json",
+    "source": "local",
+    "notes": "Branch deletion event."
+  },
+  {
+    "event": "delete",
+    "case": "tag-1",
+    "path": "events/delete/tag-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (tag)."
+  },
+  {
+    "event": "delete",
+    "case": "tag-2",
+    "path": "events/delete/tag-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (tag)."
+  },
+  {
+    "event": "delete",
+    "case": "tag-3",
+    "path": "events/delete/tag-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3 (tag)."
+  },
+  {
+    "event": "delete",
+    "case": "tag-4",
+    "path": "events/delete/tag-4.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #4 (tag)."
+  },
+  {
+    "event": "deployment",
+    "case": "created",
+    "path": "events/deployment/created.json",
+    "source": "local",
+    "notes": "Deployment request."
+  },
+  {
+    "event": "deployment",
+    "case": "production",
+    "path": "events/deployment/production.json",
+    "source": "local",
+    "notes": "Production deployment request."
+  },
+  {
+    "event": "deployment",
+    "case": "created-1",
+    "path": "events/deployment/created-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (created)."
+  },
+  {
+    "event": "deployment",
+    "case": "created-2",
+    "path": "events/deployment/created-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (created)."
+  },
+  {
+    "event": "deployment",
+    "case": "created-3",
+    "path": "events/deployment/created-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3 (created)."
+  },
+  {
+    "event": "deployment",
+    "case": "created-4",
+    "path": "events/deployment/created-4.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #4 (created)."
+  },
+  {
+    "event": "deployment_status",
+    "case": "success",
+    "path": "events/deployment_status/success.json",
+    "source": "local",
+    "notes": "Successful deployment status."
+  },
+  {
+    "event": "deployment_status",
+    "case": "failure",
+    "path": "events/deployment_status/failure.json",
+    "source": "local",
+    "notes": "Failed deployment status."
+  },
+  {
+    "event": "deployment_status",
+    "case": "created-1",
+    "path": "events/deployment_status/created-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (created)."
+  },
+  {
+    "event": "deployment_status",
+    "case": "created-2",
+    "path": "events/deployment_status/created-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (created)."
+  },
+  {
+    "event": "deployment_status",
+    "case": "created-3",
+    "path": "events/deployment_status/created-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3 (created)."
+  },
+  {
+    "event": "deployment_status",
+    "case": "created-4",
+    "path": "events/deployment_status/created-4.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #4 (created)."
+  },
+  {
+    "event": "discussion",
+    "case": "accepted-answer",
+    "path": "events/discussion/accepted-answer.json",
+    "source": "local",
+    "notes": "Discussion opened."
+  },
+  {
+    "event": "discussion",
+    "case": "answered",
+    "path": "events/discussion/answered.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (answered)."
+  },
+  {
+    "event": "discussion",
+    "case": "category-changed",
+    "path": "events/discussion/category-changed.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3 (category_changed)."
+  },
+  {
+    "event": "discussion",
+    "case": "created-1",
+    "path": "events/discussion/created-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (created)."
+  },
+  {
+    "event": "discussion",
+    "case": "created-2",
+    "path": "events/discussion/created-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #4 (created)."
+  },
+  {
+    "event": "discussion",
+    "case": "edited-1",
+    "path": "events/discussion/edited-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #5 (edited)."
+  },
+  {
+    "event": "discussion",
+    "case": "edited-2",
+    "path": "events/discussion/edited-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #6 (edited)."
+  },
+  {
+    "event": "discussion",
+    "case": "labeled-1",
+    "path": "events/discussion/labeled-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #7 (labeled)."
+  },
+  {
+    "event": "discussion",
+    "case": "labeled-2",
+    "path": "events/discussion/labeled-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #8 (labeled)."
+  },
+  {
+    "event": "discussion",
+    "case": "locked-1",
+    "path": "events/discussion/locked-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #9 (locked)."
+  },
+  {
+    "event": "discussion",
+    "case": "locked-2",
+    "path": "events/discussion/locked-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #10 (locked)."
+  },
+  {
+    "event": "discussion",
+    "case": "pinned",
+    "path": "events/discussion/pinned.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #11 (pinned)."
+  },
+  {
+    "event": "discussion",
+    "case": "transferred",
+    "path": "events/discussion/transferred.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #12 (transferred)."
+  },
+  {
+    "event": "discussion",
+    "case": "unanswered",
+    "path": "events/discussion/unanswered.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #13 (unanswered)."
+  },
+  {
+    "event": "discussion",
+    "case": "unlabeled",
+    "path": "events/discussion/unlabeled.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #14 (unlabeled)."
+  },
+  {
+    "event": "discussion",
+    "case": "unlocked",
+    "path": "events/discussion/unlocked.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #15 (unlocked)."
+  },
+  {
+    "event": "discussion_comment",
+    "case": "created",
+    "path": "events/discussion_comment/created.json",
+    "source": "local",
+    "notes": "Discussion comment created."
+  },
+  {
+    "event": "discussion_comment",
+    "case": "created-1",
+    "path": "events/discussion_comment/created-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (created)."
+  },
+  {
+    "event": "discussion_comment",
+    "case": "created-2",
+    "path": "events/discussion_comment/created-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (created)."
+  },
+  {
+    "event": "discussion_comment",
+    "case": "deleted",
+    "path": "events/discussion_comment/deleted.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3 (deleted)."
+  },
+  {
+    "event": "discussion_comment",
+    "case": "edited",
+    "path": "events/discussion_comment/edited.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #4 (edited)."
+  },
+  {
+    "event": "fork",
+    "case": "forked",
+    "path": "events/fork/forked.json",
+    "source": "local",
+    "notes": "Repository forked."
+  },
+  {
+    "event": "fork",
+    "case": "example-1",
+    "path": "events/fork/example-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1."
+  },
+  {
+    "event": "fork",
+    "case": "example-2",
+    "path": "events/fork/example-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2."
+  },
+  {
+    "event": "fork",
+    "case": "example-3",
+    "path": "events/fork/example-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3."
+  },
+  {
+    "event": "gollum",
+    "case": "updated",
+    "path": "events/gollum/updated.json",
+    "source": "local",
+    "notes": "Wiki pages updated."
+  },
+  {
+    "event": "gollum",
+    "case": "example-1",
+    "path": "events/gollum/example-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1."
+  },
+  {
+    "event": "gollum",
+    "case": "example-2",
+    "path": "events/gollum/example-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2."
+  },
+  {
+    "event": "gollum",
+    "case": "example-3",
+    "path": "events/gollum/example-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3."
+  },
+  {
+    "event": "image_version",
+    "case": "updated",
+    "path": "events/image_version/updated.json",
+    "source": "local",
+    "notes": "GitHub image version event."
+  },
+  {
+    "event": "issue_comment",
+    "case": "created",
+    "path": "events/issue_comment/created.json",
+    "source": "local",
+    "notes": "Issue comment created."
+  },
+  {
+    "event": "issue_comment",
+    "case": "created-1",
+    "path": "events/issue_comment/created-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (created)."
+  },
+  {
+    "event": "issue_comment",
+    "case": "created-2",
+    "path": "events/issue_comment/created-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (created)."
+  },
+  {
+    "event": "issue_comment",
+    "case": "created-3",
+    "path": "events/issue_comment/created-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3 (created)."
+  },
+  {
+    "event": "issue_comment",
+    "case": "created-4",
+    "path": "events/issue_comment/created-4.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #4 (created)."
+  },
+  {
+    "event": "issue_comment",
+    "case": "created-5",
+    "path": "events/issue_comment/created-5.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #5 (created)."
+  },
+  {
+    "event": "issue_comment",
+    "case": "deleted-1",
+    "path": "events/issue_comment/deleted-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #6 (deleted)."
+  },
+  {
+    "event": "issue_comment",
+    "case": "deleted-2",
+    "path": "events/issue_comment/deleted-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #7 (deleted)."
+  },
+  {
+    "event": "issue_comment",
+    "case": "edited-1",
+    "path": "events/issue_comment/edited-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #8 (edited)."
+  },
+  {
+    "event": "issue_comment",
+    "case": "edited-2",
+    "path": "events/issue_comment/edited-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #9 (edited)."
+  },
+  {
+    "event": "issues",
+    "case": "opened",
+    "path": "events/issues/opened.json",
+    "source": "local",
+    "notes": "Issue opened."
+  },
+  {
+    "event": "issues",
+    "case": "closed",
+    "path": "events/issues/closed.json",
+    "source": "local",
+    "notes": "Issue closed."
+  },
+  {
+    "event": "issues",
+    "case": "assigned-1",
+    "path": "events/issues/assigned-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (assigned)."
+  },
+  {
+    "event": "issues",
+    "case": "assigned-2",
+    "path": "events/issues/assigned-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3 (assigned)."
+  },
+  {
+    "event": "issues",
+    "case": "assigned-3",
+    "path": "events/issues/assigned-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #4 (assigned)."
+  },
+  {
+    "event": "issues",
+    "case": "deleted",
+    "path": "events/issues/deleted.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #5 (deleted)."
+  },
+  {
+    "event": "issues",
+    "case": "demilestoned-1",
+    "path": "events/issues/demilestoned-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #6 (demilestoned)."
+  },
+  {
+    "event": "issues",
+    "case": "demilestoned-2",
+    "path": "events/issues/demilestoned-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #7 (demilestoned)."
+  },
+  {
+    "event": "issues",
+    "case": "edited-1",
+    "path": "events/issues/edited-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (edited)."
+  },
+  {
+    "event": "issues",
+    "case": "edited-2",
+    "path": "events/issues/edited-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #8 (edited)."
+  },
+  {
+    "event": "issues",
+    "case": "edited-3",
+    "path": "events/issues/edited-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #9 (edited)."
+  },
+  {
+    "event": "issues",
+    "case": "labeled-1",
+    "path": "events/issues/labeled-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #10 (labeled)."
+  },
+  {
+    "event": "issues",
+    "case": "labeled-2",
+    "path": "events/issues/labeled-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #11 (labeled)."
+  },
+  {
+    "event": "issues",
+    "case": "locked-1",
+    "path": "events/issues/locked-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #12 (locked)."
+  },
+  {
+    "event": "issues",
+    "case": "locked-2",
+    "path": "events/issues/locked-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #13 (locked)."
+  },
+  {
+    "event": "issues",
+    "case": "milestoned-1",
+    "path": "events/issues/milestoned-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #14 (milestoned)."
+  },
+  {
+    "event": "issues",
+    "case": "milestoned-2",
+    "path": "events/issues/milestoned-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #15 (milestoned)."
+  },
+  {
+    "event": "issues",
+    "case": "opened-1",
+    "path": "events/issues/opened-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #16 (opened)."
+  },
+  {
+    "event": "issues",
+    "case": "opened-2",
+    "path": "events/issues/opened-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #17 (opened)."
+  },
+  {
+    "event": "issues",
+    "case": "opened-3",
+    "path": "events/issues/opened-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #18 (opened)."
+  },
+  {
+    "event": "issues",
+    "case": "opened-4",
+    "path": "events/issues/opened-4.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #19 (opened)."
+  },
+  {
+    "event": "issues",
+    "case": "pinned",
+    "path": "events/issues/pinned.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #20 (pinned)."
+  },
+  {
+    "event": "issues",
+    "case": "reopened",
+    "path": "events/issues/reopened.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #21 (reopened)."
+  },
+  {
+    "event": "issues",
+    "case": "transferred",
+    "path": "events/issues/transferred.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #22 (transferred)."
+  },
+  {
+    "event": "issues",
+    "case": "unassigned-1",
+    "path": "events/issues/unassigned-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #23 (unassigned)."
+  },
+  {
+    "event": "issues",
+    "case": "unassigned-2",
+    "path": "events/issues/unassigned-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #24 (unassigned)."
+  },
+  {
+    "event": "issues",
+    "case": "unlabeled-1",
+    "path": "events/issues/unlabeled-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #25 (unlabeled)."
+  },
+  {
+    "event": "issues",
+    "case": "unlabeled-2",
+    "path": "events/issues/unlabeled-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #26 (unlabeled)."
+  },
+  {
+    "event": "issues",
+    "case": "unlocked-1",
+    "path": "events/issues/unlocked-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #27 (unlocked)."
+  },
+  {
+    "event": "issues",
+    "case": "unlocked-2",
+    "path": "events/issues/unlocked-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #28 (unlocked)."
+  },
+  {
+    "event": "issues",
+    "case": "unpinned",
+    "path": "events/issues/unpinned.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #29 (unpinned)."
+  },
+  {
+    "event": "label",
+    "case": "created",
+    "path": "events/label/created.json",
+    "source": "local",
+    "notes": "Label created."
+  },
+  {
+    "event": "label",
+    "case": "created-1",
+    "path": "events/label/created-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (created)."
+  },
+  {
+    "event": "label",
+    "case": "created-2",
+    "path": "events/label/created-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3 (created)."
+  },
+  {
+    "event": "label",
+    "case": "created-3",
+    "path": "events/label/created-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #4 (created)."
+  },
+  {
+    "event": "label",
+    "case": "deleted-1",
+    "path": "events/label/deleted-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (deleted)."
+  },
+  {
+    "event": "label",
+    "case": "deleted-2",
+    "path": "events/label/deleted-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #5 (deleted)."
+  },
+  {
+    "event": "label",
+    "case": "edited",
+    "path": "events/label/edited.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #6 (edited)."
+  },
+  {
+    "event": "merge_group",
+    "case": "checks-requested",
+    "path": "events/merge_group/checks-requested.json",
+    "source": "local",
+    "notes": "Merge queue checks requested."
+  },
+  {
+    "event": "merge_group",
+    "case": "checks-requested-1",
+    "path": "events/merge_group/checks-requested-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (checks_requested)."
+  },
+  {
+    "event": "merge_group",
+    "case": "checks-requested-2",
+    "path": "events/merge_group/checks-requested-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (checks_requested)."
+  },
+  {
+    "event": "milestone",
+    "case": "created",
+    "path": "events/milestone/created.json",
+    "source": "local",
+    "notes": "Milestone opened."
+  },
+  {
+    "event": "milestone",
+    "case": "closed-1",
+    "path": "events/milestone/closed-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (closed)."
+  },
+  {
+    "event": "milestone",
+    "case": "closed-2",
+    "path": "events/milestone/closed-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3 (closed)."
+  },
+  {
+    "event": "milestone",
+    "case": "created-1",
+    "path": "events/milestone/created-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (created)."
+  },
+  {
+    "event": "milestone",
+    "case": "created-2",
+    "path": "events/milestone/created-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #4 (created)."
+  },
+  {
+    "event": "milestone",
+    "case": "deleted",
+    "path": "events/milestone/deleted.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #5 (deleted)."
+  },
+  {
+    "event": "page_build",
+    "case": "success",
+    "path": "events/page_build/success.json",
+    "source": "local",
+    "notes": "Successful Pages build."
+  },
+  {
+    "event": "page_build",
+    "case": "failure",
+    "path": "events/page_build/failure.json",
+    "source": "local",
+    "notes": "Failed Pages build."
+  },
+  {
+    "event": "page_build",
+    "case": "example-1",
+    "path": "events/page_build/example-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1."
+  },
+  {
+    "event": "page_build",
+    "case": "example-2",
+    "path": "events/page_build/example-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2."
+  },
+  {
+    "event": "page_build",
+    "case": "example-3",
+    "path": "events/page_build/example-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3."
+  },
+  {
+    "event": "public",
+    "case": "publicized",
+    "path": "events/public/publicized.json",
+    "source": "local",
+    "notes": "Repository made public."
+  },
+  {
+    "event": "public",
+    "case": "example-1",
+    "path": "events/public/example-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1."
+  },
+  {
+    "event": "public",
+    "case": "example-2",
+    "path": "events/public/example-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2."
+  },
+  {
+    "event": "public",
+    "case": "example-3",
+    "path": "events/public/example-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3."
+  },
+  {
+    "event": "pull_request",
+    "case": "opened",
+    "path": "events/pull_request/opened.json",
+    "source": "local",
+    "notes": "Pull request opened."
+  },
+  {
+    "event": "pull_request",
+    "case": "merged",
+    "path": "events/pull_request/merged.json",
+    "source": "local",
+    "notes": "Pull request closed and merged."
+  },
+  {
+    "event": "pull_request",
+    "case": "assigned-1",
+    "path": "events/pull_request/assigned-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (assigned)."
+  },
+  {
+    "event": "pull_request",
+    "case": "assigned-2",
+    "path": "events/pull_request/assigned-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3 (assigned)."
+  },
+  {
+    "event": "pull_request",
+    "case": "closed-1",
+    "path": "events/pull_request/closed-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #4 (closed)."
+  },
+  {
+    "event": "pull_request",
+    "case": "closed-2",
+    "path": "events/pull_request/closed-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #5 (closed)."
+  },
+  {
+    "event": "pull_request",
+    "case": "converted-to-draft-1",
+    "path": "events/pull_request/converted-to-draft-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #6 (converted_to_draft)."
+  },
+  {
+    "event": "pull_request",
+    "case": "converted-to-draft-2",
+    "path": "events/pull_request/converted-to-draft-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #7 (converted_to_draft)."
+  },
+  {
+    "event": "pull_request",
+    "case": "converted-to-draft-3",
+    "path": "events/pull_request/converted-to-draft-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #8 (converted_to_draft)."
+  },
+  {
+    "event": "pull_request",
+    "case": "labeled-1",
+    "path": "events/pull_request/labeled-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #9 (labeled)."
+  },
+  {
+    "event": "pull_request",
+    "case": "labeled-2",
+    "path": "events/pull_request/labeled-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #10 (labeled)."
+  },
+  {
+    "event": "pull_request",
+    "case": "locked-1",
+    "path": "events/pull_request/locked-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #11 (locked)."
+  },
+  {
+    "event": "pull_request",
+    "case": "locked-2",
+    "path": "events/pull_request/locked-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #12 (locked)."
+  },
+  {
+    "event": "pull_request",
+    "case": "opened-1",
+    "path": "events/pull_request/opened-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (opened)."
+  },
+  {
+    "event": "pull_request",
+    "case": "opened-2",
+    "path": "events/pull_request/opened-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #13 (opened)."
+  },
+  {
+    "event": "pull_request",
+    "case": "opened-3",
+    "path": "events/pull_request/opened-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #14 (opened)."
+  },
+  {
+    "event": "pull_request",
+    "case": "opened-4",
+    "path": "events/pull_request/opened-4.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #15 (opened)."
+  },
+  {
+    "event": "pull_request",
+    "case": "ready-for-review-1",
+    "path": "events/pull_request/ready-for-review-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #16 (ready_for_review)."
+  },
+  {
+    "event": "pull_request",
+    "case": "ready-for-review-2",
+    "path": "events/pull_request/ready-for-review-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #17 (ready_for_review)."
+  },
+  {
+    "event": "pull_request",
+    "case": "ready-for-review-3",
+    "path": "events/pull_request/ready-for-review-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #18 (ready_for_review)."
+  },
+  {
+    "event": "pull_request",
+    "case": "reopened-1",
+    "path": "events/pull_request/reopened-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #19 (reopened)."
+  },
+  {
+    "event": "pull_request",
+    "case": "reopened-2",
+    "path": "events/pull_request/reopened-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #20 (reopened)."
+  },
+  {
+    "event": "pull_request",
+    "case": "review-request-removed",
+    "path": "events/pull_request/review-request-removed.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #21 (review_request_removed)."
+  },
+  {
+    "event": "pull_request",
+    "case": "review-requested",
+    "path": "events/pull_request/review-requested.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #22 (review_requested)."
+  },
+  {
+    "event": "pull_request",
+    "case": "synchronize",
+    "path": "events/pull_request/synchronize.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #23 (synchronize)."
+  },
+  {
+    "event": "pull_request",
+    "case": "unassigned-1",
+    "path": "events/pull_request/unassigned-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #24 (unassigned)."
+  },
+  {
+    "event": "pull_request",
+    "case": "unassigned-2",
+    "path": "events/pull_request/unassigned-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #25 (unassigned)."
+  },
+  {
+    "event": "pull_request",
+    "case": "unlabeled-1",
+    "path": "events/pull_request/unlabeled-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #26 (unlabeled)."
+  },
+  {
+    "event": "pull_request",
+    "case": "unlabeled-2",
+    "path": "events/pull_request/unlabeled-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #27 (unlabeled)."
+  },
+  {
+    "event": "pull_request",
+    "case": "unlocked-1",
+    "path": "events/pull_request/unlocked-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #28 (unlocked)."
+  },
+  {
+    "event": "pull_request",
+    "case": "unlocked-2",
+    "path": "events/pull_request/unlocked-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #29 (unlocked)."
+  },
+  {
+    "event": "pull_request_review",
+    "case": "submitted",
+    "path": "events/pull_request_review/submitted.json",
+    "source": "local",
+    "notes": "Pull request review approved."
+  },
+  {
+    "event": "pull_request_review",
+    "case": "dismissed",
+    "path": "events/pull_request_review/dismissed.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (dismissed)."
+  },
+  {
+    "event": "pull_request_review",
+    "case": "submitted-1",
+    "path": "events/pull_request_review/submitted-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (submitted)."
+  },
+  {
+    "event": "pull_request_review",
+    "case": "submitted-2",
+    "path": "events/pull_request_review/submitted-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3 (submitted)."
+  },
+  {
+    "event": "pull_request_review",
+    "case": "submitted-3",
+    "path": "events/pull_request_review/submitted-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #4 (submitted)."
+  },
+  {
+    "event": "pull_request_review_comment",
+    "case": "created",
+    "path": "events/pull_request_review_comment/created.json",
+    "source": "local",
+    "notes": "Pull request review comment created."
+  },
+  {
+    "event": "pull_request_review_comment",
+    "case": "created-1",
+    "path": "events/pull_request_review_comment/created-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (created)."
+  },
+  {
+    "event": "pull_request_review_comment",
+    "case": "created-2",
+    "path": "events/pull_request_review_comment/created-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (created)."
+  },
+  {
+    "event": "pull_request_review_comment",
+    "case": "created-3",
+    "path": "events/pull_request_review_comment/created-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3 (created)."
+  },
+  {
+    "event": "pull_request_review_comment",
+    "case": "deleted",
+    "path": "events/pull_request_review_comment/deleted.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #4 (deleted)."
+  },
+  {
+    "event": "pull_request_review_comment",
+    "case": "edited",
+    "path": "events/pull_request_review_comment/edited.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #5 (edited)."
+  },
+  {
+    "event": "pull_request_target",
+    "case": "synchronize",
+    "path": "events/pull_request_target/synchronize.json",
+    "source": "local",
+    "notes": "Pull request target opened."
+  },
+  {
+    "event": "push",
+    "case": "main",
+    "path": "events/push/main.json",
+    "source": "local",
+    "notes": "Push with commits."
+  },
+  {
+    "event": "push",
+    "case": "master-1",
+    "path": "events/push/master-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #5 (master)."
+  },
+  {
+    "event": "push",
+    "case": "master-2",
+    "path": "events/push/master-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #6 (master)."
+  },
+  {
+    "event": "push",
+    "case": "simple-tag-1",
+    "path": "events/push/simple-tag-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (simple-tag)."
+  },
+  {
+    "event": "push",
+    "case": "simple-tag-2",
+    "path": "events/push/simple-tag-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (simple-tag)."
+  },
+  {
+    "event": "push",
+    "case": "simple-tag-3",
+    "path": "events/push/simple-tag-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3 (simple-tag)."
+  },
+  {
+    "event": "push",
+    "case": "simple-tag-4",
+    "path": "events/push/simple-tag-4.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #4 (simple-tag)."
+  },
+  {
+    "event": "push",
+    "case": "simple-tag-5",
+    "path": "events/push/simple-tag-5.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #7 (simple-tag)."
+  },
+  {
+    "event": "registry_package",
+    "case": "published",
+    "path": "events/registry_package/published.json",
+    "source": "local",
+    "notes": "Package published."
+  },
+  {
+    "event": "release",
+    "case": "published",
+    "path": "events/release/published.json",
+    "source": "local",
+    "notes": "Release published."
+  },
+  {
+    "event": "release",
+    "case": "created-1",
+    "path": "events/release/created-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (created)."
+  },
+  {
+    "event": "release",
+    "case": "created-2",
+    "path": "events/release/created-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3 (created)."
+  },
+  {
+    "event": "release",
+    "case": "created-3",
+    "path": "events/release/created-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #4 (created)."
+  },
+  {
+    "event": "release",
+    "case": "deleted-1",
+    "path": "events/release/deleted-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #5 (deleted)."
+  },
+  {
+    "event": "release",
+    "case": "deleted-2",
+    "path": "events/release/deleted-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #6 (deleted)."
+  },
+  {
+    "event": "release",
+    "case": "edited-1",
+    "path": "events/release/edited-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #7 (edited)."
+  },
+  {
+    "event": "release",
+    "case": "edited-2",
+    "path": "events/release/edited-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #8 (edited)."
+  },
+  {
+    "event": "release",
+    "case": "prereleased-1",
+    "path": "events/release/prereleased-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #9 (prereleased)."
+  },
+  {
+    "event": "release",
+    "case": "prereleased-2",
+    "path": "events/release/prereleased-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #10 (prereleased)."
+  },
+  {
+    "event": "release",
+    "case": "published-1",
+    "path": "events/release/published-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (published)."
+  },
+  {
+    "event": "release",
+    "case": "published-2",
+    "path": "events/release/published-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #11 (published)."
+  },
+  {
+    "event": "release",
+    "case": "published-3",
+    "path": "events/release/published-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #12 (published)."
+  },
+  {
+    "event": "release",
+    "case": "released",
+    "path": "events/release/released.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #13 (released)."
+  },
+  {
+    "event": "repository_dispatch",
+    "case": "deploy",
+    "path": "events/repository_dispatch/deploy.json",
+    "source": "local",
+    "notes": "Repository dispatch event."
+  },
+  {
+    "event": "repository_dispatch",
+    "case": "on-demand-test-1",
+    "path": "events/repository_dispatch/on-demand-test-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (on-demand-test)."
+  },
+  {
+    "event": "repository_dispatch",
+    "case": "on-demand-test-2",
+    "path": "events/repository_dispatch/on-demand-test-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (on-demand-test)."
+  },
+  {
+    "event": "schedule",
+    "case": "scheduled",
+    "path": "events/schedule/scheduled.json",
+    "source": "local",
+    "notes": "Scheduled workflow event."
+  },
+  {
+    "event": "status",
+    "case": "success",
+    "path": "events/status/success.json",
+    "source": "local",
+    "notes": "Successful commit status."
+  },
+  {
+    "event": "status",
+    "case": "failure",
+    "path": "events/status/failure.json",
+    "source": "local",
+    "notes": "Failed commit status."
+  },
+  {
+    "event": "status",
+    "case": "pending",
+    "path": "events/status/pending.json",
+    "source": "local",
+    "notes": "Pending commit status."
+  },
+  {
+    "event": "status",
+    "case": "success-1",
+    "path": "events/status/success-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (success)."
+  },
+  {
+    "event": "status",
+    "case": "success-2",
+    "path": "events/status/success-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (success)."
+  },
+  {
+    "event": "status",
+    "case": "success-3",
+    "path": "events/status/success-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3 (success)."
+  },
+  {
+    "event": "status",
+    "case": "success-4",
+    "path": "events/status/success-4.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #4 (success)."
+  },
+  {
+    "event": "watch",
+    "case": "started",
+    "path": "events/watch/started.json",
+    "source": "local",
+    "notes": "Repository starred."
+  },
+  {
+    "event": "watch",
+    "case": "started-1",
+    "path": "events/watch/started-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (started)."
+  },
+  {
+    "event": "watch",
+    "case": "started-2",
+    "path": "events/watch/started-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (started)."
+  },
+  {
+    "event": "watch",
+    "case": "started-3",
+    "path": "events/watch/started-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3 (started)."
+  },
+  {
+    "event": "workflow_call",
+    "case": "called",
+    "path": "events/workflow_call/called.json",
+    "source": "local",
+    "notes": "Reusable workflow called."
+  },
+  {
+    "event": "workflow_dispatch",
+    "case": "manual",
+    "path": "events/workflow_dispatch/manual.json",
+    "source": "local",
+    "notes": "Manual workflow dispatch."
+  },
+  {
+    "event": "workflow_dispatch",
+    "case": "main",
+    "path": "events/workflow_dispatch/main.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (main)."
+  },
+  {
+    "event": "workflow_dispatch",
+    "case": "master",
+    "path": "events/workflow_dispatch/master.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (master)."
+  },
+  {
+    "event": "workflow_run",
+    "case": "completed",
+    "path": "events/workflow_run/completed.json",
+    "source": "local",
+    "notes": "Successful workflow run."
+  },
+  {
+    "event": "workflow_run",
+    "case": "cancelled",
+    "path": "events/workflow_run/cancelled.json",
+    "source": "local",
+    "notes": "Cancelled workflow run."
+  },
+  {
+    "event": "workflow_run",
+    "case": "failure",
+    "path": "events/workflow_run/failure.json",
+    "source": "local",
+    "notes": "Failed workflow run."
+  },
+  {
+    "event": "workflow_run",
+    "case": "completed-1",
+    "path": "events/workflow_run/completed-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #1 (completed)."
+  },
+  {
+    "event": "workflow_run",
+    "case": "completed-2",
+    "path": "events/workflow_run/completed-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #2 (completed)."
+  },
+  {
+    "event": "workflow_run",
+    "case": "completed-3",
+    "path": "events/workflow_run/completed-3.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #3 (completed)."
+  },
+  {
+    "event": "workflow_run",
+    "case": "requested-1",
+    "path": "events/workflow_run/requested-1.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #4 (requested)."
+  },
+  {
+    "event": "workflow_run",
+    "case": "requested-2",
+    "path": "events/workflow_run/requested-2.json",
+    "source": "octokit",
+    "notes": "Octokit webhook payload example #5 (requested)."
+  }
 ]

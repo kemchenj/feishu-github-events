@@ -6,7 +6,6 @@ export interface FixtureCase {
   event: ActionEventName;
   case: string;
   path: string;
-  primary: boolean;
   source: "local" | "octokit";
   notes?: string;
 }
@@ -17,7 +16,7 @@ export interface MockPayload {
   payload: GitHubPayload;
 }
 
-export function createMockPayload(eventName: ActionEventName, caseName = "primary"): GitHubPayload {
+export function createMockPayload(eventName: ActionEventName, caseName?: string): GitHubPayload {
   const fixture = findFixtureCase(eventName, caseName);
   const payload = readFixture(`../fixtures/${fixture.path}`) as GitHubPayload;
   return structuredClone(payload);
@@ -25,14 +24,13 @@ export function createMockPayload(eventName: ActionEventName, caseName = "primar
 
 export function createMockPayloads({
   eventName,
-  caseName,
-  allCases = false
+  caseName
 }: {
   eventName?: string;
   caseName?: string;
   allCases?: boolean;
 } = {}): MockPayload[] {
-  const fixtures = selectFixtureCases({ eventName, caseName, allCases });
+  const fixtures = selectFixtureCases({ eventName, caseName });
   return fixtures.map((fixture) => ({
     eventName: fixture.event,
     caseName: fixture.case,
@@ -61,12 +59,10 @@ export function listFixtureCases(): FixtureCase[] {
 
 function selectFixtureCases({
   eventName,
-  caseName,
-  allCases
+  caseName
 }: {
   eventName?: string;
   caseName?: string;
-  allCases: boolean;
 }): FixtureCase[] {
   const fixtures = listFixtureCases();
 
@@ -80,7 +76,7 @@ function selectFixtureCases({
       return fixture.case === caseName;
     }
 
-    return allCases || fixture.primary;
+    return true;
   });
 
   if (selected.length === 0) {
@@ -91,8 +87,8 @@ function selectFixtureCases({
   return selected;
 }
 
-function findFixtureCase(eventName: ActionEventName, caseName: string): FixtureCase {
-  return selectFixtureCases({ eventName, caseName, allCases: false })[0];
+function findFixtureCase(eventName: ActionEventName, caseName?: string): FixtureCase {
+  return selectFixtureCases({ eventName, caseName })[0];
 }
 
 function readFixture(path: string): unknown {

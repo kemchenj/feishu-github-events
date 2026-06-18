@@ -1,13 +1,17 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createMockPayloads } from "../scripts/mock-payloads.js";
+import { createMockPayloads, listFixtureCases } from "../scripts/mock-payloads.js";
 
-test("selects one primary fixture for a specific mock event", () => {
+test("selects every fixture for a specific mock event by default", () => {
   const payloads = createMockPayloads({ eventName: "push" });
+  const fixtures = listFixtureCases().filter((fixture) => fixture.event === "push");
 
-  assert.equal(payloads.length, 1);
-  assert.equal(payloads[0].eventName, "push");
-  assert.equal(payloads[0].caseName, "primary");
+  assert.equal(payloads.length, fixtures.length);
+  assert.ok(payloads.length > 1);
+  assert.deepEqual(
+    payloads.map((payload) => payload.caseName),
+    fixtures.map((fixture) => fixture.case)
+  );
 });
 
 test("selects a specific mock fixture case", () => {
@@ -19,11 +23,11 @@ test("selects a specific mock fixture case", () => {
   assert.equal(payloads[0].payload.deployment_status.state, "failure");
 });
 
-test("selects every fixture case for all-cases mock runs", () => {
-  const primary = createMockPayloads();
+test("keeps all-cases as a compatibility alias", () => {
+  const defaultPayloads = createMockPayloads();
   const all = createMockPayloads({ allCases: true });
 
-  assert.ok(all.length > primary.length);
+  assert.equal(all.length, defaultPayloads.length);
 });
 
 test("fails clearly for unknown events and cases", () => {
@@ -33,6 +37,6 @@ test("fails clearly for unknown events and cases", () => {
   );
   assert.throws(
     () => createMockPayloads({ eventName: "push", caseName: "missing" }),
-    /Available cases: primary/
+    /Available cases: main/
   );
 });

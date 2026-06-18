@@ -86,7 +86,7 @@ npm run test:mock -- deployment_status --case failure
 npm run test:mock:all
 ```
 
-`npm test` sends the primary fixture for every supported event. `test:mock` narrows the run to one event or one case. `test:mock:all` sends every fixture variant and is better suited for staged review.
+`npm test` sends every fixture case for every supported event. `test:mock` narrows the run to one event, and `--case` narrows it to one case. `test:mock:all` is kept as a compatibility alias for the same full run.
 
 Optional environment variables:
 
@@ -106,9 +106,9 @@ npm run test:unit
 
 ## Fixtures
 
-Fixtures live under `fixtures/events/<event>/<case>.json`. `fixtures/events.json` is the manifest used by the mock runner and tests. Each entry records the event, case, source, and whether it is the primary case.
+Fixtures live under `fixtures/events/<event>/<case>.json`. `fixtures/events.json` is the manifest used by the mock runner and tests. Each entry records the event, case, source, and notes.
 
-The first fixture set is local and intentionally complete enough for formatting work. The sync script can pull available examples from Octokit's public webhook payload examples, then local cases can fill gaps that are Actions-only, hard to trigger, or status-specific.
+The first fixture set is local and intentionally complete enough for formatting work. The sync script imports every available example from Octokit's public webhook payload examples as semantic cases, while local cases fill gaps that are Actions-only, hard to trigger, or status-specific. The manifest keeps the fixture source separate from the case name.
 
 ```bash
 npm run fixtures:sync -- --dry-run

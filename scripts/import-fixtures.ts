@@ -14,14 +14,14 @@ if (paths.length === 0) {
   const imported = [];
 
   for (const file of files) {
-    const eventName = eventNameFromFile(file);
-    if (!eventName) {
+    const fixture = fixtureFromFile(file);
+    if (!fixture) {
       continue;
     }
 
     const payload = JSON.parse(readFileSync(file, "utf8"));
-    const target = path.join("fixtures", "events", eventName, "primary.json");
-    imported.push({ eventName, file, target });
+    const target = path.join("fixtures", "events", fixture.eventName, `${fixture.caseName}.json`);
+    imported.push({ eventName: fixture.eventName, file, target });
 
     if (!dryRun) {
       writeFileSync(target, `${JSON.stringify(payload, null, 2)}\n`);
@@ -50,9 +50,26 @@ function collectJsonFiles(item: string): string[] {
   return item.endsWith(".json") && !path.basename(item).startsWith("_") ? [item] : [];
 }
 
-function eventNameFromFile(file: string): string | undefined {
+function fixtureFromFile(file: string): { eventName: string; caseName: string } | undefined {
   const name = path.basename(file, ".json");
-  return [...ACTION_EVENTS]
+  const eventName = [...ACTION_EVENTS]
     .sort((left, right) => right.length - left.length)
     .find((eventName) => name === eventName || name.startsWith(`${eventName}_`));
+  if (!eventName) {
+    return undefined;
+  }
+
+  const suffix = name === eventName ? "imported" : name.slice(eventName.length + 1);
+  return {
+    eventName,
+    caseName: slug(suffix)
+  };
+}
+
+function slug(value: string): string {
+  return value
+    .replace(/([a-z])([A-Z])/g, "$1-$2")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "") || "imported";
 }
