@@ -28,8 +28,8 @@ on:
   registry_package:
   release:
   repository_dispatch:
-  schedule:
-    - cron: "17 3 * * *"
+  # schedule:
+  #   - cron: "17 3 * * *"
   status:
   watch:
   workflow_call:
