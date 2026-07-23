@@ -2,7 +2,7 @@
 
 Send GitHub event notifications from GitHub Actions to a Feishu group bot.
 
-This repository contains a single TypeScript JavaScript Action. The published Action entry is the Rollup bundle at `dist/index.js`, so consumers can use it directly from a tag such as `v1`.
+This repository contains a single TypeScript JavaScript Action. The published Action entry is the ESM-only Rolldown bundle at `dist/index.js`, so consumers can use it directly from a tag such as `v1`.
 
 ## Usage
 
@@ -126,7 +126,7 @@ npm ci
 npm run verify
 ```
 
-`npm run verify` runs typecheck, unit tests, and Rollup build. Commit `dist/index.js` whenever source changes; CI checks that the bundle is up to date.
+`npm run verify` runs typecheck, unit tests, and the Rolldown build. Commit `dist/index.js` whenever source changes; CI checks that the bundle is up to date.
 
 ## Dogfood
 
