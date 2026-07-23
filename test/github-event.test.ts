@@ -5,9 +5,9 @@ import {
   defaultHandlers,
   shortRef,
   shortSha
-} from "../src/github-event.js";
-import { ACTION_EVENTS } from "../src/action-events.js";
-import { createMockPayload } from "../scripts/mock-payloads.js";
+} from "../src/github-event.ts";
+import { ACTION_EVENTS } from "../src/action-events.ts";
+import { createMockPayload } from "../scripts/mock-payloads.ts";
 
 test("registers a default handler for every supported action event", () => {
   assert.deepEqual(Object.keys(defaultHandlers).sort(), [...ACTION_EVENTS].sort());

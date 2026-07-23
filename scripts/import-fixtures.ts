@@ -1,6 +1,6 @@
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { ACTION_EVENTS } from "../src/action-events.js";
+import { ACTION_EVENTS } from "../src/action-events.ts";
 
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");

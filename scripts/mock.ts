@@ -1,8 +1,8 @@
-import { getActionInputs } from "../src/config.js";
-import { sendFeishuWebhook } from "../src/feishu.js";
-import { buildGitHubEventMessage } from "../src/github-event.js";
-import { renderTemplate } from "../src/templates/index.js";
-import { createMockPayloads } from "./mock-payloads.js";
+import { getActionInputs } from "../src/config.ts";
+import { sendFeishuWebhook } from "../src/feishu.ts";
+import { buildGitHubEventMessage } from "../src/github-event.ts";
+import { renderTemplate } from "../src/templates/index.ts";
+import { createMockPayloads } from "./mock-payloads.ts";
 
 interface MockArgs {
   eventName?: string;

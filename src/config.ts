@@ -1,4 +1,4 @@
-import { deepMerge, parseJsonObject } from "./template-options.js";
+import { deepMerge, parseJsonObject } from "./template-options.ts";
 
 export interface ActionInputs {
   webhook: string;

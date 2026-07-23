@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { ACTION_EVENTS, type ActionEventName } from "../src/action-events.js";
+import { ACTION_EVENTS, type ActionEventName } from "../src/action-events.ts";
 
 const OCTOKIT_INDEX_URL = "https://octokit.github.io/webhooks/payload-examples/api.github.com/index.json";
 

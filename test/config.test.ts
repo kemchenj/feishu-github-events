@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { getActionInputs, getInput } from "../src/config.js";
+import { getActionInputs, getInput } from "../src/config.ts";
 
 test("reads action inputs from GitHub-style env names", () => {
   const inputs = getActionInputs({

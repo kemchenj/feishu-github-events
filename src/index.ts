@@ -1,10 +1,10 @@
 import { readFile } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
-import { getActionInputs } from "./config.js";
-import { sendFeishuWebhook } from "./feishu.js";
-import { buildGitHubEventMessage } from "./github-event.js";
-import { renderTemplate } from "./templates/index.js";
-import { addMask, setFailed } from "./workflow-command.js";
+import { getActionInputs } from "./config.ts";
+import { sendFeishuWebhook } from "./feishu.ts";
+import { buildGitHubEventMessage } from "./github-event.ts";
+import { renderTemplate } from "./templates/index.ts";
+import { addMask, setFailed } from "./workflow-command.ts";
 
 export async function main({
   env = process.env,

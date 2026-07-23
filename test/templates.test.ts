@@ -1,10 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { ACTION_EVENTS } from "../src/action-events.js";
-import { deepMerge } from "../src/template-options.js";
-import { buildGitHubEventMessage } from "../src/github-event.js";
-import { renderTemplate } from "../src/templates/index.js";
-import { createMockPayload, listFixtureCases } from "../scripts/mock-payloads.js";
+import { ACTION_EVENTS } from "../src/action-events.ts";
+import { deepMerge } from "../src/template-options.ts";
+import { buildGitHubEventMessage } from "../src/github-event.ts";
+import { renderTemplate } from "../src/templates/index.ts";
+import { createMockPayload, listFixtureCases } from "../scripts/mock-payloads.ts";
 
 const EVENT_SPECIFIC_KEYS = {
   branch_protection_rule: ["rule"],

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createMockPayloads, listFixtureCases } from "../scripts/mock-payloads.js";
+import { createMockPayloads, listFixtureCases } from "../scripts/mock-payloads.ts";
 
 test("selects every fixture for a specific mock event by default", () => {
   const payloads = createMockPayloads({ eventName: "push" });

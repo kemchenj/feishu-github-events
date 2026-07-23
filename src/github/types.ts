@@ -1,5 +1,5 @@
 import type { webhooks } from "@octokit/openapi-webhooks-types";
-import type { ActionEventName } from "../action-events.js";
+import type { ActionEventName } from "../action-events.ts";
 
 type WebhookPayload<Key extends keyof webhooks> =
   webhooks[Key]["post"] extends {

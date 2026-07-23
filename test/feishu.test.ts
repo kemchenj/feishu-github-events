@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { createHmac } from "node:crypto";
-import { createSignature, createWebhookBody, sendFeishuWebhook } from "../src/feishu.js";
+import { createSignature, createWebhookBody, sendFeishuWebhook } from "../src/feishu.ts";
 
 test("creates Feishu bot signature", () => {
   const expected = createHmac("sha256", "1700000000\nsecret")

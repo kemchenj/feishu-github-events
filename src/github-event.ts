@@ -1,11 +1,11 @@
-import { isActionEventName, type ActionEventName } from "./action-events.js";
+import { isActionEventName, type ActionEventName } from "./action-events.ts";
 import type {
   GitHubEventHandler,
   GitHubPayload,
   HandlerContext,
   GitHubEventMessage,
   SummaryItem
-} from "./github/types.js";
+} from "./github/types.ts";
 
 export const defaultHandlers = {
   branch_protection_rule: buildBranchProtectionRuleEvent,

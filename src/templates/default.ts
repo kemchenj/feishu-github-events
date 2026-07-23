@@ -1,7 +1,7 @@
-import { shortRef, shortSha } from "../github-event.js";
-import { deepMerge } from "../template-options.js";
-import type { GitHubEventMessage, SummaryItem } from "../github/types.js";
-import type { LarkCardElement, LarkMessage } from "../lark/types.js";
+import { shortRef, shortSha } from "../github-event.ts";
+import { deepMerge } from "../template-options.ts";
+import type { GitHubEventMessage, SummaryItem } from "../github/types.ts";
+import type { LarkCardElement, LarkMessage } from "../lark/types.ts";
 
 const DEFAULT_OPTIONS = Object.freeze({
   titlePrefix: "GitHub",

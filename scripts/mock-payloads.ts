@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
-import { ACTION_EVENTS, isActionEventName, type ActionEventName } from "../src/action-events.js";
-import type { GitHubPayload } from "../src/github/types.js";
+import { ACTION_EVENTS, isActionEventName, type ActionEventName } from "../src/action-events.ts";
+import type { GitHubPayload } from "../src/github/types.ts";
 
 export interface FixtureCase {
   event: ActionEventName;

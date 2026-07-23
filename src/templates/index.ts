@@ -1,6 +1,6 @@
-import { renderDefaultTemplate } from "./default.js";
-import type { GitHubEventMessage } from "../github/types.js";
-import type { LarkMessage } from "../lark/types.js";
+import { renderDefaultTemplate } from "./default.ts";
+import type { GitHubEventMessage } from "../github/types.ts";
+import type { LarkMessage } from "../lark/types.ts";
 
 const templates = new Map([["default", renderDefaultTemplate]]);
 
