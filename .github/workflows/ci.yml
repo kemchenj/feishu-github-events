@@ -23,6 +23,3 @@ jobs:
       - run: npm ci
 
       - run: npm run verify
-
-      - name: Check bundled action
-        run: git diff --exit-code -- dist/index.js

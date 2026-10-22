@@ -76,7 +76,8 @@ function inputEnvNames(name) {
 //#endregion
 //#region src/feishu.ts
 function createSignature(timestamp, secret) {
-	return createHmac("sha256", `${timestamp}\n${secret}`).update("").digest("base64");
+	const stringToSign = `${timestamp}\n${secret}`;
+	return createHmac("sha256", stringToSign).update("").digest("base64");
 }
 function createWebhookBody(message, { secret = "", timestamp = nowSeconds() } = {}) {
 	if (!secret) return message;

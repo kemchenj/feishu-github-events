@@ -126,13 +126,13 @@ npm ci
 npm run verify
 ```
 
-`npm run verify` runs typecheck, unit tests, and the Rolldown build. Commit `dist/index.js` whenever source changes; CI checks that the bundle is up to date.
+`npm run verify` runs typecheck, unit tests, and the Rolldown build. CI does not compare the generated bundle with the committed file. Commit `dist/index.js` whenever source changes, and always rebuild and commit it before publishing a release.
 
 ## Dogfood
 
 This repository includes two workflows:
 
-- `.github/workflows/ci.yml` runs `npm run verify` and checks the generated bundle.
+- `.github/workflows/ci.yml` runs `npm run verify`.
 - `.github/workflows/notify-feishu.yml` calls this Action with `uses: ./` for supported events. It skips the notification step when `FEISHU_WEBHOOK` is not configured.
 
 `workflow_run` notifications are limited to the `CI` workflow completing, so notification runs do not recursively notify themselves.
