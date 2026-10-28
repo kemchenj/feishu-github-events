@@ -19,7 +19,7 @@
   "devDependencies": {
     "@octokit/openapi-webhooks-types": "^12.2.0",
     "@types/node": "^24.19.2",
-    "rolldown": "^1.2.14",
+    "rolldown": "^1.2.15",
     "typescript": "^7.0.2"
   }
 }
