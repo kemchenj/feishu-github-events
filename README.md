@@ -45,7 +45,7 @@ For a full workflow that listens to every supported event, see this repository's
 
 The built-in `default` template renders a compact Feishu `interactive` card. It keeps detail in the GitHub link instead of repeating context in the body: titles carry the key event signal, comment and review bodies keep Markdown formatting, GitHub usernames link to profiles, and every card uses a single `View Detail` button.
 
-Use `template-options` to tweak title prefix, header colors, visible fields, and button text.
+Titles have no prefix by default. Use `template-options` to tweak title prefix, header colors, visible fields, and button text.
 
 ```yaml
 - uses: owner/feishu-github-events@v1
@@ -54,7 +54,7 @@ Use `template-options` to tweak title prefix, header colors, visible fields, and
     secret: ${{ secrets.FEISHU_SECRET }}
     template-options: |
       {
-        "titlePrefix": "GitHub",
+        "titlePrefix": "",
         "eventHeaderTemplates": {
           "pull_request": "purple",
           "issues": "orange"

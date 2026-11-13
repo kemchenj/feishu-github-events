@@ -4,7 +4,7 @@ import type { GitHubEventMessage, SummaryItem } from "../github/types.ts";
 import type { LarkCardElement, LarkMessage } from "../lark/types.ts";
 
 const DEFAULT_OPTIONS = Object.freeze({
-  titlePrefix: "GitHub",
+  titlePrefix: "",
   headerTemplate: "blue",
   eventHeaderTemplates: {
     push: "green",

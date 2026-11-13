@@ -681,7 +681,7 @@ function shortRef(ref) {
 //#endregion
 //#region src/templates/default.ts
 const DEFAULT_OPTIONS = Object.freeze({
-	titlePrefix: "GitHub",
+	titlePrefix: "",
 	headerTemplate: "blue",
 	eventHeaderTemplates: {
 		push: "green",
